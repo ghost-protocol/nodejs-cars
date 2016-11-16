@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include ../partials/head %>
+    </head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="row">
+    
+                    <form action="/addCar" method="POST">
+
+                        <div class="form-group">
+                            <label>Name of car</label>
+                            <!-- <input type="text" class="form-control" id="name"> -->
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Manufacturer</label>
+                            <!-- <input type="text" class="form-control" id="manufacturer"> -->
+                            <input type="text" class="form-control" name="manufacturer">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Car specifications</label>
+                            <!-- <textarea class="form-control" rows="5" id="detail"></textarea> -->
+                            <textarea class="form-control" rows="5" name="details"></textarea>
+                            <!-- <input type="text" class="form-control" id="detail"> -->
+                        </div>
+                          
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
+
+                    </form>
+                    <br/>
+
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">Category 1</a>
+                        <a href="#" class="list-group-item">Category 2</a>
+                        <a href="#" class="list-group-item">Category 3</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row">
+                    <% cars.forEach(function(car) { %>
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="http://placehold.it/320x150" alt="">
+                            <div class="caption">
+                                <!-- <h4 class="pull-right">$24.99</h4> -->
+                                <h4><a href="#"><%= car.manufacturer %> <%= car.name %></a>
+                                </h4>
+                                <p><%=car.details%></p>
+                            </div>
+                            <div class="ratings">
+                                <!-- <p class="pull-right">15 reviews</p> -->
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="#">view</a> | 
+                                    <!-- <a href="/edit">edit</a> |  -->
+                                    <a href="/edit/<%= car.id %>">edit</a> |
+                                    <a href="#">delete</a>
+                                    <!-- <a href="#"><span class="glyphicon glyphicon-pencil" alt="edit"></span></a> | 
+                                    <a href="#"><span class="glyphicon glyphicon-pencil" alt="edit"></span></a> | 
+                                    <a href="#"><span class="glyphicon glyphicon-pencil" alt="edit"></span></a> -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+    
+</body>
+</html>
