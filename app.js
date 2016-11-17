@@ -10,33 +10,64 @@ app.use(bodyParser.urlencoded({extended: true}));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-var cars = {};
-
 //application root/home
 app.get('/', function(request, response){
+	var cars = {};
 	db.car.findAll({}).then(function (cars) {
 		response.render('pages/index.ejs', {cars});
-
 	});
-});
-
-app.get('/edit/:id', function(request, response){
-	
 });
 
 app.post('/addCar', function(request, response) {
 	var body = _.pick(request.body, 'name', 'manufacturer', 'details');
 	//console.log(body);
 	db.car.create(body).then(function (car) {
-		// var car = request.body.carname;
-		// var manufacturer = request.body.manufacturer;
-		// var detail = request.body.detail;
-		//response.send(request.body.name);
-		//console.log(body);
 		console.log('Records saved to database');
 		response.redirect('/');
 	});
 });
+
+app.put('/edit/:id', function(request, response){
+	//console.log('XXXXXX');
+	//response.render('pages/edit');
+	// var carId = parseInt(request.params.id, 10);
+	// var body = _.pick(request.body, 'name', 'manufacturer', 'details');
+	// var attributes = {};
+
+	// db.car.findOne({
+	// 	where: {
+	// 		id: carId
+	// 	}
+	// }).then(function (car) {
+	// 	if(car){
+	// 		car.update(attributes).then(function(car){
+	// 			response.json(car.toJSON());
+	// 		});
+	// 	}
+
+	// 	//console.log(carId);
+
+
+	// });
+});
+
+//DELETE /:id
+app.get('/deleteCar/:id', function(request, response){
+	var carId = parseInt(request.params.id, 10);
+	//response.render('pages/deleteCar');
+	//console.log(carId);
+
+	db.car.destroy({
+		where: { id: carId }
+	}).then(function (rowsDeleted){
+		if(rowsDeleted === 0) {
+			console.log("No rows")
+		}
+	});
+	console.log("car removed");
+	response.redirect("/");
+});
+
 
 // app.get('/edit', function(request, response) {
 // 	console.log('EDIT!!');

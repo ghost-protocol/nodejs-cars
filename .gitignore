@@ -1,1 +1,2 @@
-/data
+/data/*.sqlite
+node_modules/
